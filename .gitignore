@@ -1,0 +1,42 @@
+import pygame
+pygame.init()
+
+# Ustawienia okna gry
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Poruszająca się kropka")
+
+# Ustawienia kropki
+dot_size = 20
+dot_color = (255, 0, 0)
+dot_x = screen_width // 2
+dot_y = screen_height // 2
+dot_speed = 5
+dot_direction = "right"
+
+# Pętla gry
+running = True
+while running:
+    # Obsługa zdarzeń
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Poruszanie kropki
+    if dot_direction == "right":
+        dot_x += dot_speed
+        if dot_x >= screen_width - dot_size:
+            dot_direction = "left"
+    else:
+        dot_x -= dot_speed
+        if dot_x <= 0:
+            dot_direction = "right"
+
+    # Rysowanie kropki
+    screen.fill((255, 255, 255))
+    pygame.draw.circle(screen, dot_color, (dot_x, dot_y), dot_size)
+    pygame.display.update()
+
+# Zamknięcie gry
+pygame.quit()
